@@ -1,9 +1,8 @@
 package lists;
 
 public class SinglyLinkedList {
-
     Node head;
-    Node tail;
+
 
     class Node {
         int data;
@@ -25,12 +24,10 @@ public class SinglyLinkedList {
     // pushing to the front of the list
     public void push(int data) {
         Node node = new Node(data);
-        if(head == null) {
-            tail = node;
-        } else {
+        if(head != null) {
             node.next = head;
         }
-        head = node;
+        head =  node;
     }
 
     /*
@@ -44,12 +41,15 @@ public class SinglyLinkedList {
     // pushing to the back of the list
     public void insert(int data) {
         Node node = new Node(data);
+        Node curr = head;
         if(head == null) {
             head = node;
-        } else {
-            tail.next = node;
+            return;
         }
-        tail = node;
+        while(curr.next != null) {
+            curr = curr.next;
+        }
+        curr.next = node;
     }
 
     /*
@@ -61,13 +61,15 @@ public class SinglyLinkedList {
      */
     public boolean iterativeSearch(int data) {
         Node curr = head;
-        while(curr != null) {
-            if(curr.data == data) {
-                return true;
-            }
+        while(curr != null && curr.data != data) {
             curr = curr.next;
         }
-        return false;
+
+        if (curr == null) {
+            return false;
+        }
+        return true;
+
     }
 
     /*
@@ -78,6 +80,7 @@ public class SinglyLinkedList {
     Complexity: O(n)
      */
     public boolean recursiveSearch(Node node, int data) {
+
         if(node == null) {
             return false;
         }
@@ -87,7 +90,6 @@ public class SinglyLinkedList {
         }
 
         return recursiveSearch(node.next, data);
-
     }
 
     /*
@@ -110,21 +112,18 @@ public class SinglyLinkedList {
             return;
         }
 
-        while(curr != null && curr.data != data) {
+        while(curr!=null && curr.data != data) {
             prev = curr;
             curr = curr.next;
         }
 
-        if(curr == null) {
+        if (curr == null) {
             return;
         }
 
-        if(curr == tail) {
-            tail = prev;
-            return;
+        if(curr.data == data) {
+            prev.next = curr.next;
         }
-
-        prev.next = curr.next;
 
     }
 

@@ -7,23 +7,24 @@ public class DoublyLinkedList {
 
     class Node {
         int data;
-        Node prev;
         Node next;
+        Node prev;
 
-        public Node(int data) {
+        public Node(int data){
             this.data = data;
         }
     }
+
+
 
     // push
     public void push(int data) {
         Node node = new Node(data);
         if(head == null) {
-            node.prev = tail;
             tail = node;
         } else {
-            head.prev = node;
             node.next = head;
+            head.prev = node;
         }
         head = node;
     }
@@ -34,23 +35,23 @@ public class DoublyLinkedList {
         if(head == null) {
             head = node;
         } else {
-            tail.next = node;
             node.prev = tail;
+            tail.next = node;
         }
         tail = node;
     }
 
     // iterative search
     public boolean iterativeSearch(int data) {
-        Node current = head;
+        Node curr = head;
 
-        while(current != null) {
-            if(current.data == data) {
-                return true;
-            }
-            current = current.next;
+        while(curr != null && curr.data != data) {
+            curr = curr.next;
         }
-        return false;
+        if(curr == null) {
+            return false;
+        }
+        return true;
     }
 
     // recursive search
@@ -73,31 +74,31 @@ public class DoublyLinkedList {
     }
 
     public void delete(int data) {
-        Node current = head;
+        Node curr = head;
 
-        // delete head
-        if(head != null && head.data == data) {
+        if(head.data == data) {
             head = head.next;
             head.prev = null;
             return;
         }
 
-        while(current != null && current.data != data) {
-            current = current.next;
+        while(curr != null && curr.data != data) {
+            curr = curr.next;
         }
 
-        if(current == null) {
+        if(curr == null) {
             return;
         }
 
-        if (current == tail) {
-            tail = current.prev;
-            current.prev.next = null;
+        if(curr == tail) {
+            tail = curr.prev;
+            tail.next = null;
             return;
         }
 
-        current.prev.next = current.next;
-        current.next.prev = current.prev;
+        curr.next.prev = curr.prev;
+        curr.prev.next = curr.next;
+
     }
 
     @Override

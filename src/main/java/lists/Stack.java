@@ -1,34 +1,32 @@
 package lists;
 
 public class Stack {
-    int arr[];
-    int capacity;
+
+    int[] arr;
     int top;
+    int capacity;
 
     public Stack(int size) {
         arr = new int[size];
-        capacity = size;
-        top = -1;
+        this.top = -1;
+        this.capacity = size;
     }
 
     public void push(int data) {
-        if (isFull()) {
-            throw new RuntimeException("Error: Stack is full");
+        if(isFull()) {
+            throw new RuntimeException("stack is full, stack overflow");
         }
         arr[++top] = data;
     }
 
     public int pop() {
         if(isEmpty()) {
-            throw new RuntimeException("Error: Stack is empty");
+            throw new RuntimeException("stack is empty nothing to pop");
         }
         return arr[top--];
     }
 
     public int peek() {
-        if(isEmpty()) {
-            return -1;
-        }
         return arr[top];
     }
 
